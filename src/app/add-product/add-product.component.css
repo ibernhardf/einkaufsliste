@@ -1,0 +1,14 @@
+#input-name {
+    width: 50%;
+    height: 30px;
+    font-size: larger;
+    padding-left: 10px;
+}
+#input-amount {
+    width: 30px;
+    height: 30px;
+    font-size: larger;
+    padding-left: 10px;
+    margin-left: 5px;
+    margin-right: 5px;
+}

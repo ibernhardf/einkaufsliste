@@ -1,0 +1,6 @@
+<!-- Formular zum Hinzufügen eines neuen Artikels -->
+<form (submit)="addProduct()">
+    <input id="input-name" type="text" [(ngModel)]="productService.name" placeholder="Artikelname" required name="artikel">
+    <input id="input-amount" type="number" [(ngModel)]="productService.amount" min="1" placeholder="Menge" name="menge">
+    <button type="submit">Hinzufügen</button>
+</form>

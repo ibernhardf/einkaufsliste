@@ -1,0 +1,23 @@
+<div class="app-container">
+  <div class="einkaufsliste-parent">
+    <div class="einkaufsliste-box">
+      <h2 class="einkaufsliste-titel">Meine Einkaufsliste</h2>
+
+      <!-- Produkt hinzufügen -->
+      <app-add-product></app-add-product>
+
+      <!-- Einkaufsliste anzeigen -->
+      <ul>
+        <li *ngFor="let product of productService.productList; let i = index">
+          <span [style.textDecoration]="product.bought ? 'line-through' : 'none'">
+            {{ product.name }} ({{ product.amount }})
+          </span>
+          <button (click)="boughtProduct(i)">
+            {{ product.bought ? 'Rückgängig' : 'Gekauft' }}
+          </button>
+          <button (click)="removeProduct(i)">Entfernen</button>
+        </li>
+      </ul>
+    </div>
+  </div>
+</div>

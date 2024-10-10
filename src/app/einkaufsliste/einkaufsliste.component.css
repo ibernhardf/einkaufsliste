@@ -1,0 +1,37 @@
+.app-container {
+  width: 100%;
+  min-height: 100vh;
+  background: radial-gradient(
+    circle at 10% 20%,
+    rgb(255, 200, 124) 0%,
+    rgb(252, 232, 121) 90%
+  );
+}
+
+.einkaufsliste-parent {
+  position: relative;
+  font-family: "Roboto", "Open Sans", "Helvetica Neue", sans-serif;
+}
+
+.einkaufsliste-box {
+  background: rgba(255, 255, 255, 0.8);
+  border-radius: 20px;
+  box-shadow: rgba(0, 0, 0, 0.15) 1.95px 1.95px 2.6px;
+  padding-top: 25px;
+  padding-bottom: 25px;
+  padding-left: 50px;
+  padding-right: 50px;
+  position: absolute;
+  top: 250px;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+
+.einkaufsliste-titel {
+  font-size: 40px;
+  font-weight: 500;
+  background-image: radial-gradient(ellipse, #1966a1, #010d1e);
+  color: transparent;
+  background-clip: text;
+  -webkit-background-clip: text;
+}
