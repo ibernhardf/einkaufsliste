@@ -1,0 +1,24 @@
+<div class="shops-container">
+  <div class="shops-parent">
+    <div class="shops-box">
+      <h2 class="shops-title"><fa-icon [icon]="faStore"></fa-icon> Geschäfte</h2>
+
+      <!-- Geschäft hinzufügen -->
+      <app-add-shop></app-add-shop>
+
+      <!-- Geschäfte anzeigen -->
+      <div id="list-of-shops">
+        <div class="shop-label-container" *ngFor="let shop of shopService.shopList; let i = index">
+          <!-- TODO: color from color picker -->
+          <span class="shop-label" [style.backgroundColor]="shop.color">
+            {{ shop.name }}
+          </span>
+          <button class="btn-shop-delete" (click)="deleteShop(i)"><fa-icon [icon]="faTrash"></fa-icon></button>
+        </div>
+      </div>
+      <div id="products-link-container">
+        <fa-icon [icon]="faShoppingCart"></fa-icon>&nbsp;<a routerLink="/list">Zur Einkaufsliste</a>
+      </div>
+    </div>
+  </div>
+</div>

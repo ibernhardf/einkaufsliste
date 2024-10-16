@@ -4,4 +4,5 @@ export interface Product {
   amount: number;
   bought: boolean;
   annotation: string;
+  shopid?: number;
 }

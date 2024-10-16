@@ -1,0 +1,22 @@
+#input-shop-name {
+    width: 20vw;
+    height: 30px;
+    font-size: larger;
+    padding-left: 10px;
+    padding-right: 10px;
+}
+
+#input-shop-color {
+    cursor: grab;
+    width: 25px;
+    height: 25px;
+    margin-left: 5px;
+    margin-right: 5px;
+    border-radius: 10px;
+    border: 2px solid white;
+}
+
+#add-shop-btn {
+    height: 30px;
+    font-size: medium;
+}

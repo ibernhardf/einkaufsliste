@@ -1,6 +1,35 @@
-<!-- Formular zum Hinzufügen eines neuen Artikels -->
+<!-- Formular zum Hinzufügen eines neuen Produkts -->
 <form (submit)="addProduct()">
-    <input id="input-name" type="text" [(ngModel)]="productService.name" placeholder="Artikelname" required name="artikel">
-    <input id="input-amount" type="number" [(ngModel)]="productService.amount" min="1" placeholder="Menge" name="menge">
-    <button type="submit">Hinzufügen</button>
+    <input
+        id="input-product-name"
+        type="text"
+        [(ngModel)]="product.name"
+        placeholder="Name des Produkts"
+        required
+        name="product"
+    >
+    <input
+        id="input-product-amount"
+        type="number"
+        [(ngModel)]="product.amount"
+        min="1"
+        placeholder="Menge"
+        name="amount"
+    >
+    <input
+        id="input-product-annotation"
+        type="text"
+        [(ngModel)]="product.annotation"
+        placeholder="Notiz (optional)"
+        name="annotation"
+    >
+    <select id="select-product-shopid" [(ngModel)]="product.shopid" name="shop">
+        <option selected disabled>Geschäft</option>
+        <option *ngFor="let shop of shopService.shopList" [value]="shop.id">
+            {{ shop.name }}
+        </option>
+    </select>
+    <div>
+        <button id="add-product-btn" type="submit"><fa-icon [icon]="faPlusCircle"></fa-icon> Auf die Liste</button>
+    </div>
 </form>

@@ -1,7 +1,7 @@
-<div class="app-container">
+<div class="einkaufsliste-container">
   <div class="einkaufsliste-parent">
     <div class="einkaufsliste-box">
-      <h2 class="einkaufsliste-titel">Meine Einkaufsliste</h2>
+      <h2 class="einkaufsliste-titel"><fa-icon [icon]="faShoppingCart"></fa-icon> Meine Einkaufsliste</h2>
 
       <!-- Produkt hinzufügen -->
       <app-add-product></app-add-product>
@@ -10,14 +10,25 @@
       <ul>
         <li *ngFor="let product of productService.productList; let i = index">
           <span [style.textDecoration]="product.bought ? 'line-through' : 'none'">
-            {{ product.name }} ({{ product.amount }})
+            <span class="product-shop-label">{{ product.shopid }}</span>{{ product.name }} ({{ product.amount }}x)
           </span>
-          <button (click)="boughtProduct(i)">
-            {{ product.bought ? 'Rückgängig' : 'Gekauft' }}
-          </button>
-          <button (click)="removeProduct(i)">Entfernen</button>
+          <span class="product-annotation" [style.color]="product.bought ? 'lightgray' : 'gray'">
+            <small>{{ product.annotation }}</small>
+          </span>
+          <span>
+            <button class="btn-bought-product" (click)="boughtProduct(i)">
+              <fa-icon *ngIf="product.bought; else notBoughtIcon" [icon]="faUndo"></fa-icon>
+              <ng-template #notBoughtIcon>
+                <fa-icon [icon]="faCheck"></fa-icon>
+              </ng-template>
+            </button>
+            <button class="btn-delete-product" (click)="removeProduct(i)"><fa-icon [icon]="faTrash"></fa-icon></button>
+          </span>
         </li>
       </ul>
+      <div id="shops-link-container">
+        <fa-icon [icon]="faStore"></fa-icon>&nbsp;<a routerLink="/shops">Geschäfte anlegen</a>
+      </div>
     </div>
   </div>
 </div>

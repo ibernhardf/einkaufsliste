@@ -1,7 +1,8 @@
 import { Component } from '@angular/core';
-import { ProductService } from '../services/product.service';
 import { OnInit } from '@angular/core';
+import { ProductService } from '../services/product.service';
 import { SupabaseService } from '../services/supabase.service';
+import { faShoppingCart, faStore, faCheck, faUndo, faTrash } from '@fortawesome/free-solid-svg-icons';
 
 @Component({
   selector: 'app-einkaufsliste',
@@ -11,6 +12,12 @@ import { SupabaseService } from '../services/supabase.service';
 export class EinkaufslisteComponent implements OnInit {
 
   constructor(protected productService: ProductService, private supabaseService: SupabaseService) {}
+
+  faShoppingCart = faShoppingCart;
+  faStore = faStore;
+  faCheck = faCheck;
+  faUndo = faUndo;
+  faTrash = faTrash;
 
   ngOnInit(): void {
     this.getProductList();

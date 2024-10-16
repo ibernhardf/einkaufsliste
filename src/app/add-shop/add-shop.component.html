@@ -1,0 +1,19 @@
+<!-- Formular zum Hinzufügen eines neuen Geschäfts -->
+<form (submit)="addShop()">
+    <input
+        id="input-shop-name"
+        type="text"
+        [(ngModel)]="shop.name"
+        placeholder="Name des Geschäfts"
+        required
+        name="shop"
+    >
+    <input
+        id="input-shop-color"
+        type="text"
+        name="color"
+        [(colorPicker)]="shop.color"
+        [style.background]="shop.color"
+    />
+    <button id="add-shop-btn" type="submit"><fa-icon [icon]="faPlusCircle"></fa-icon> Hinzufügen</button>
+</form>

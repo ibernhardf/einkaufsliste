@@ -1,16 +1,16 @@
-.einkaufsliste-container {
+.shops-container {
   min-width: 100vh;
   min-height: 100vh;
   background: radial-gradient(
     circle at 10% 20%,
-    rgb(124, 244, 255) 0%,
-    rgb(64, 87, 197) 90%
+    rgb(174, 28, 150) 0%,
+    rgb(100, 29, 118) 90%
   );
   padding: 0;
   margin: 0;
 }
 
-.einkaufsliste-parent {
+.shops-parent {
   font-family: "Roboto", "Open Sans", "Helvetica Neue", sans-serif;
   display: flex;
   justify-content: center;
@@ -20,7 +20,7 @@
   box-sizing: border-box;
 }
 
-.einkaufsliste-box {
+.shops-box {
   width: 70vw;
   max-height: 80vh;
   overflow-y: auto;
@@ -31,52 +31,48 @@
   margin: 0 auto;
 }
 
-.einkaufsliste-titel {
-  color: rgb(27, 37, 85);
+.shops-title {
   font-size: 40px;
   font-weight: 450;
+  color: rgb(74, 22, 87);
 }
 
-ul {
-  list-style: none;
-  padding: 0;
-  margin: 20px 0 30px 0;
+.shop-label-container {
+  margin: 10px;
 }
 
-li {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  padding: 10px 0;
-  border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+.shop-label {
+  color: white;
+  font-size: larger;
+  padding-top: 5px;
+  padding-bottom: 5px;
+  padding-left: 10px;
+  padding-right: 10px;
+  border-radius: 10px;
 }
 
-li span {
-  font-size: 1.2em;
-  color: #1b2555;
+.btn-shop-delete {
+  margin-left: 5px;
+  font-size: small;
 }
 
-li button {
+#list-of-shops {
+  margin-top: 30px;
+  margin-bottom: 30px;
+}
+
+.btn-shop-delete {
   background: transparent;
   border: none;
   cursor: pointer;
   font-size: 1.2em;
-  color: #1b2555;
+  color: lightpink;
 }
 
-li button:hover {
-  color: #4057c5;
+.btn-shop-delete:hover {
+  color: #FF0000;
 }
 
-li button:focus {
+.btn-shop-delete:focus {
   outline: none;
-}
-
-.einkaufsliste-box ul li:nth-child(even) {
-  background: rgba(64, 87, 197, 0.05);
-}
-
-.product-shop-label {
-  margin-right: 5px;
-  height: 5px;
 }

@@ -1,16 +1,18 @@
 import { Injectable } from '@angular/core';
 import { createClient, SupabaseClient } from '@supabase/supabase-js';
 import { Product } from '../product';
+import { Shop } from '../shop';
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class SupabaseService {
   private supabase: SupabaseClient;
 
   constructor() {
     const supabaseUrl = 'https://crektsjeyxolwnbtugmw.supabase.co';
-    const supabaseKey = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImNyZWt0c2pleXhvbHduYnR1Z213Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3Mjg1MDYxNjIsImV4cCI6MjA0NDA4MjE2Mn0.yx8NbHeeqP-dwgkqZuLQQyWGRhR2lkUqezSByGuBmos';
+    const supabaseKey =
+      'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImNyZWt0c2pleXhvbHduYnR1Z213Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3Mjg1MDYxNjIsImV4cCI6MjA0NDA4MjE2Mn0.yx8NbHeeqP-dwgkqZuLQQyWGRhR2lkUqezSByGuBmos';
     this.supabase = createClient(supabaseUrl, supabaseKey);
   }
 
@@ -19,7 +21,7 @@ export class SupabaseService {
     let { data, error } = await this.supabase
       .from('products')
       .select('*')
-      .order('id', { ascending: true });
+      .order('shop_id', { ascending: true });
 
     if (error) {
       console.error('Error fetching products from supabase:', error);
@@ -27,29 +29,78 @@ export class SupabaseService {
     }
 
     // Sicherstellen, dass Rückgabe mit Product-Interface übereinstimmt
-    return data?.map(item => ({
-      id: item.id,
-      name: item.name ?? '',
-      amount: item.amount ?? 1,
-      bought: item.bought ?? false,
-      annotation: item.annotation ?? ''
-    })) || [];
+    return (
+      data?.map((item) => ({
+        id: item.id,
+        name: item.name ?? '',
+        amount: item.amount ?? 1,
+        bought: item.bought ?? false,
+        annotation: item.annotation ?? '',
+        shopid: item.shop_id ?? null,
+      })) || []
+    );
+  }
+
+  // Shop abrufen
+  async getShop(id: number): Promise<Shop | null> {
+    let { data, error } = await this.supabase
+      .from('shops')
+      .select('*')
+      .eq('id', id)
+      .single();
+
+    if (error) {
+      console.error('Error fetching shop from supabase:', error);
+      return null;
+    }
+
+    return data ?? null;
+  }
+
+  // Shop aus Liste der Shops von Supabase abrufen
+  async getShopList(): Promise<Shop[]> {
+    let { data, error } = await this.supabase
+      .from('shops')
+      .select('*')
+      .order('name', { ascending: true });
+
+    if (error) {
+      console.error('Error fetching shops from supabase:', error);
+      return [];
+    }
+
+    // Sicherstellen, dass Rückgabe mit Shop-Interface übereinstimmt
+    return (
+      data?.map((item) => ({
+        id: item.id,
+        name: item.name ?? '',
+        color: item.color ?? '#000000'
+      })) || []
+    );
   }
 
   // Produkt aus Einkaufsliste zu Supabase hinzufügen
-  async addProduct(name: string, amount: number, annotation: string) {
+  async addProduct(product: Product) {
+    console.log('supabaseService: addProduct');
 
-    console.log('supabaseService: addProduct')
+    const name = product.name;
+    const amount = product.amount;
+    const annotation = product.annotation;
+    const shopid = product.shopid;
 
-    const { data, error } = await this.supabase
-      .from('products')
-      .insert([{ name, amount, bought: false, annotation }]);
+    if (product.name.trim()) {
+      const { data, error } = await this.supabase
+        .from('products')
+        .insert([{ name, amount, bought: false, annotation, shop_id: shopid }]);
 
-    if (error) {
-      console.error('Error adding article:', error);
+      if (error) {
+        console.error('Error adding article:', error);
+      }
+
+      return data;
+    } else {
+      return;
     }
-
-    return data;
   }
 
   // Produkt aus Einkaufsliste als gekauft/nicht gekauft markieren
@@ -66,7 +117,7 @@ export class SupabaseService {
     return data;
   }
 
-  // Artikel aus der Liste löschen
+  // Produkt aus der Liste löschen
   async removeProduct(id: number) {
     const { error } = await this.supabase
       .from('products')
@@ -75,6 +126,37 @@ export class SupabaseService {
 
     if (error) {
       console.error('Error deleting product:', error);
+    }
+  }
+
+  // Shop zur Liste der Shops in Supabase hinzufügen
+  async addShop(shop: Shop) {
+    console.log('supabaseService: addShop');
+
+    const name = shop.name;
+    const color = shop.color;
+
+    if (shop.name.trim()) {
+      const { data, error } = await this.supabase
+        .from('shops')
+        .insert([{ name, color }]);
+
+      if (error) {
+        console.error('Error adding shop:', error);
+      }
+
+      return data;
+    } else {
+      return;
+    }
+  }
+
+  // Shop aus Supabase Shops-Tabelle löschen
+  async deleteShop(id: number) {
+    const { error } = await this.supabase.from('shops').delete().eq('id', id);
+
+    if (error) {
+      console.error('Error deleting shop:', error);
     }
   }
 }
