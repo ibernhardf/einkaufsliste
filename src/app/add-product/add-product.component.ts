@@ -47,8 +47,8 @@ export class AddProductComponent implements OnInit {
 
     // Produkt zur Datenbank hinzufügen.
     await this.supabaseService.addProduct(this.product);
-
     this.resetForm();
+    window.location.reload();
   }
 
   resetForm() {

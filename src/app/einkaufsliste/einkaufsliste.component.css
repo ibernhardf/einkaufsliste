@@ -79,4 +79,8 @@ li button:focus {
 .product-shop-label {
   margin-right: 5px;
   height: 5px;
+  padding: 2px 5px;
+  border-radius: 4px;
+  color: #fff !important;
+  font-size: medium !important;
 }

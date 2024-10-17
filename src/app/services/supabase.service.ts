@@ -3,6 +3,7 @@ import { createClient, SupabaseClient } from '@supabase/supabase-js';
 import { Product } from '../product';
 import { Shop } from '../shop';
 
+
 @Injectable({
   providedIn: 'root',
 })
@@ -16,12 +17,26 @@ export class SupabaseService {
     this.supabase = createClient(supabaseUrl, supabaseKey);
   }
 
+  async ensureObject<T>(input: T | T[]): Promise<T> {
+    if (Array.isArray(input)) {
+      return input[0]; // Return the first object if it's an array
+    }
+    return input; // Return the object if it's already an object
+  }
+
   // Produkt aus Einkaufsliste von Supabase abrufen
   async getProductList(): Promise<Product[]> {
     let { data, error } = await this.supabase
-      .from('products')
-      .select('*')
+      .from('product')
+      .select(
+        `
+          id, name, amount, bought, annotation, shop_id,
+          shop (name, color)
+        `
+      )
       .order('shop_id', { ascending: true });
+
+    console.log('data from supabase: ', data);
 
     if (error) {
       console.error('Error fetching products from supabase:', error);
@@ -29,38 +44,28 @@ export class SupabaseService {
     }
 
     // Sicherstellen, dass Rückgabe mit Product-Interface übereinstimmt
+
+    const data2 = await Promise.all(data?.map(async (item) => ({
+      id: item.id,
+      name: item.name ?? '',
+      amount: item.amount ?? 1,
+      bought: item.bought ?? false,
+      annotation: item.annotation ?? '',
+      shop_id: item.shop_id ?? null,
+      shop: item.shop ? await this.ensureObject(item.shop) : { name: '', color: '' }
+    })) || []);
+
+    console.log('data2:', data2)
+
     return (
-      data?.map((item) => ({
-        id: item.id,
-        name: item.name ?? '',
-        amount: item.amount ?? 1,
-        bought: item.bought ?? false,
-        annotation: item.annotation ?? '',
-        shopid: item.shop_id ?? null,
-      })) || []
+      data2 || []
     );
-  }
-
-  // Shop abrufen
-  async getShop(id: number): Promise<Shop | null> {
-    let { data, error } = await this.supabase
-      .from('shops')
-      .select('*')
-      .eq('id', id)
-      .single();
-
-    if (error) {
-      console.error('Error fetching shop from supabase:', error);
-      return null;
-    }
-
-    return data ?? null;
   }
 
   // Shop aus Liste der Shops von Supabase abrufen
   async getShopList(): Promise<Shop[]> {
     let { data, error } = await this.supabase
-      .from('shops')
+      .from('shop')
       .select('*')
       .order('name', { ascending: true });
 
@@ -74,7 +79,7 @@ export class SupabaseService {
       data?.map((item) => ({
         id: item.id,
         name: item.name ?? '',
-        color: item.color ?? '#000000'
+        color: item.color ?? '',
       })) || []
     );
   }
@@ -86,12 +91,12 @@ export class SupabaseService {
     const name = product.name;
     const amount = product.amount;
     const annotation = product.annotation;
-    const shopid = product.shopid;
+    const shop_id = product.shop_id;
 
     if (product.name.trim()) {
       const { data, error } = await this.supabase
-        .from('products')
-        .insert([{ name, amount, bought: false, annotation, shop_id: shopid }]);
+        .from('product')
+        .insert([{ name, amount, bought: false, annotation, shop_id: shop_id }]);
 
       if (error) {
         console.error('Error adding article:', error);
@@ -106,7 +111,7 @@ export class SupabaseService {
   // Produkt aus Einkaufsliste als gekauft/nicht gekauft markieren
   async boughtProduct(id: number, bought: boolean) {
     const { data, error } = await this.supabase
-      .from('products')
+      .from('product')
       .update({ bought })
       .eq('id', id);
 
@@ -120,7 +125,7 @@ export class SupabaseService {
   // Produkt aus der Liste löschen
   async removeProduct(id: number) {
     const { error } = await this.supabase
-      .from('products')
+      .from('product')
       .delete()
       .eq('id', id);
 
@@ -138,7 +143,7 @@ export class SupabaseService {
 
     if (shop.name.trim()) {
       const { data, error } = await this.supabase
-        .from('shops')
+        .from('shop')
         .insert([{ name, color }]);
 
       if (error) {
@@ -153,7 +158,7 @@ export class SupabaseService {
 
   // Shop aus Supabase Shops-Tabelle löschen
   async deleteShop(id: number) {
-    const { error } = await this.supabase.from('shops').delete().eq('id', id);
+    const { error } = await this.supabase.from('shop').delete().eq('id', id);
 
     if (error) {
       console.error('Error deleting shop:', error);

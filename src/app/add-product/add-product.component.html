@@ -23,7 +23,7 @@
         placeholder="Notiz (optional)"
         name="annotation"
     >
-    <select id="select-product-shopid" [(ngModel)]="product.shopid" name="shop">
+    <select id="select-product-shop_id" [(ngModel)]="product.shop_id" name="shop">
         <option selected disabled>Geschäft</option>
         <option *ngFor="let shop of shopService.shopList" [value]="shop.id">
             {{ shop.name }}

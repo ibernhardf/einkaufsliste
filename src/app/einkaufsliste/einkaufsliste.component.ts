@@ -25,6 +25,7 @@ export class EinkaufslisteComponent implements OnInit {
 
   async getProductList() {
     this.productService.productList = await this.supabaseService.getProductList();
+    console.log("productService.productList: ", this.productService.productList);
   }
 
   async boughtProduct(index: number) {

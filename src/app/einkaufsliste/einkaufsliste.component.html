@@ -10,7 +10,9 @@
       <ul>
         <li *ngFor="let product of productService.productList; let i = index">
           <span [style.textDecoration]="product.bought ? 'line-through' : 'none'">
-            <span class="product-shop-label">{{ product.shopid }}</span>{{ product.name }} ({{ product.amount }}x)
+            <span *ngIf="product.shop" class="product-shop-label"
+              [style.backgroundColor]="product.shop.color">{{ product.shop.name }}</span>
+            {{ product.name }} ({{ product.amount }}x)
           </span>
           <span class="product-annotation" [style.color]="product.bought ? 'lightgray' : 'gray'">
             <small>{{ product.annotation }}</small>
