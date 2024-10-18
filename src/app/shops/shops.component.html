@@ -16,9 +16,13 @@
           <button class="btn-shop-delete" (click)="deleteShop(i)"><fa-icon [icon]="faTrash"></fa-icon></button>
         </div>
       </div>
-      <div id="products-link-container">
+      <span id="products-link-container">
         <fa-icon [icon]="faShoppingCart"></fa-icon>&nbsp;<a routerLink="/list">Zur Einkaufsliste</a>
-      </div>
+      </span>
+      <span id="about-link-container">
+        <fa-icon [icon]="faCircleInfo"></fa-icon>&nbsp;<a routerLink="/about">Über diese App</a>
+      </span>
+      <div id="copyright-text">&copy; 2024 Bernhard Fischer-Sengseis</div>
     </div>
   </div>
 </div>

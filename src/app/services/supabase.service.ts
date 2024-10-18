@@ -96,7 +96,7 @@ export class SupabaseService {
     if (product.name.trim()) {
       const { data, error } = await this.supabase
         .from('product')
-        .insert([{ name, amount, bought: false, annotation, shop_id: shop_id }]);
+        .insert([{ name, amount, bought: false, annotation, shop_id }]);
 
       if (error) {
         console.error('Error adding article:', error);

@@ -9,6 +9,7 @@ export class ProductService {
   productList: Product[] = [];
 
   addProduct(product: Product) {
+
     if (product.name.trim()) {
       product.bought = false;
       this.productList.push(product);

@@ -15,8 +15,6 @@ export class ShopService {
     }
   }
 
-
-
   // Shop aus Liste der Shops löschen
   deleteShop(index: number) {
     this.shopList.splice(index, 1);

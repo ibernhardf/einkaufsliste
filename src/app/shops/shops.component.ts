@@ -2,7 +2,7 @@ import { Component } from '@angular/core';
 import { OnInit } from '@angular/core';
 import { ShopService } from '../services/shop.service';
 import { SupabaseService } from '../services/supabase.service';
-import { faStore, faShoppingCart, faTrash } from '@fortawesome/free-solid-svg-icons';
+import { faStore, faShoppingCart, faTrash, faCircleInfo } from '@fortawesome/free-solid-svg-icons';
 
 @Component({
   selector: 'app-shops',
@@ -19,6 +19,7 @@ export class ShopsComponent implements OnInit {
   faShoppingCart = faShoppingCart;
   faStore = faStore;
   faTrash = faTrash;
+  faCircleInfo = faCircleInfo;
 
   ngOnInit(): void {
     this.getShopList();

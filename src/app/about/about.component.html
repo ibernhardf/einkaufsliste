@@ -1,0 +1,37 @@
+<div class="about-container">
+  <div class="about-parent">
+    <div class="about-box">
+      <h2 class="about-title"><fa-icon [icon]="faCircleInfo"></fa-icon> Über diese App</h2>
+      <div id="about-content">
+        <p>Diese Web-App ist im Rahmen des Kurses <a href="https://www.bildungskarenz-digital.at/kurse/angular/"
+            target="_blank">Web-Applikationen mit Angular</a>
+          von <a href="https://www.bildungskarenz-digital.at" target="_blank">DIB (bildungskarenz-digital.at)</a> im
+          September/Oktober 2024 entstanden
+          und wurde von <b>Bernhard Fischer-Sengseis</b> entwickelt.</p>
+        <p>Sie dient als Demonstration der erlernten Kenntnisse im Kurs und implementiert unter anderem die folgenden
+          Kursinhalte:</p>
+        <ul>
+          <li>Property Binding</li>
+          <li>Event Handling</li>
+          <li>Strukturelle Direktiven</li>
+          <li>Routing</li>
+          <li>Lifehooks (ngOnInit)</li>
+          <li>Services (ProductService, ShopService, SupabaseService)</li>
+          <li>Supabase-Datenbank als Backend</li>
+        </ul>
+        <p>
+          Der vollständige Quellcode der App kann auf Github heruntergeladen werden:<br>
+          <a href="https://github.com/ibernhardf/einkaufsliste"
+            target="_blank">https://github.com/ibernhardf/einkaufsliste</a>
+        </p>
+      </div>
+      <span id="products-link-container">
+        <fa-icon [icon]="faShoppingCart"></fa-icon>&nbsp;<a routerLink="/list">Zur Einkaufsliste</a>
+      </span>
+      <span id="shops-link-container">
+        <fa-icon [icon]="faStore"></fa-icon>&nbsp;<a routerLink="/shops">Geschäfte anlegen</a>
+      </span>
+      <div id="copyright-text">&copy; 2024 Bernhard Fischer-Sengseis</div>
+    </div>
+  </div>
+</div>

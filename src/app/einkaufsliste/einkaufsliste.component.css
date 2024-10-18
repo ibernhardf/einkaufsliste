@@ -84,3 +84,17 @@ li button:focus {
   color: #fff !important;
   font-size: medium !important;
 }
+
+#about-link-container {
+  margin-left: 20px;
+}
+
+#copyright-text {
+  margin-top: 20px;
+  font-size: smaller;
+  color: gray;
+}
+
+.shoppinglist-item span:hover {
+  cursor: pointer;
+}

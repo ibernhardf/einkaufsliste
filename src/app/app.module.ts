@@ -10,6 +10,7 @@ import { AddShopComponent } from './add-shop/add-shop.component';
 import { ColorPickerModule } from 'ngx-color-picker';
 import { ShopsComponent } from './shops/shops.component';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
+import { AboutComponent } from './about/about.component';
 
 @NgModule({
   declarations: [
@@ -18,6 +19,7 @@ import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
     AddProductComponent,
     AddShopComponent,
     ShopsComponent,
+    AboutComponent,
   ],
   imports: [
     BrowserModule,

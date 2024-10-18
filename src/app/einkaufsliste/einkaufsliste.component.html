@@ -8,13 +8,13 @@
 
       <!-- Einkaufsliste anzeigen -->
       <ul>
-        <li *ngFor="let product of productService.productList; let i = index">
-          <span [style.textDecoration]="product.bought ? 'line-through' : 'none'">
+        <li *ngFor="let product of productService.productList; let i = index" class="shoppinglist-item">
+          <span [style.textDecoration]="product.bought ? 'line-through' : 'none'" (click)="boughtProduct(i)">
             <span *ngIf="product.shop" class="product-shop-label"
               [style.backgroundColor]="product.shop.color">{{ product.shop.name }}</span>
             {{ product.name }} ({{ product.amount }}x)
           </span>
-          <span class="product-annotation" [style.color]="product.bought ? 'lightgray' : 'gray'">
+          <span class="product-annotation" (click)="boughtProduct(i)" [style.color]="product.bought ? 'lightgray' : 'gray'" >
             <small>{{ product.annotation }}</small>
           </span>
           <span>
@@ -28,9 +28,13 @@
           </span>
         </li>
       </ul>
-      <div id="shops-link-container">
+      <span id="shops-link-container">
         <fa-icon [icon]="faStore"></fa-icon>&nbsp;<a routerLink="/shops">Geschäfte anlegen</a>
-      </div>
+      </span>
+      <span id="about-link-container">
+        <fa-icon [icon]="faCircleInfo"></fa-icon>&nbsp;<a routerLink="/about">Über diese App</a>
+      </span>
+      <div id="copyright-text">&copy; 2024 Bernhard Fischer-Sengseis</div>
     </div>
   </div>
 </div>
